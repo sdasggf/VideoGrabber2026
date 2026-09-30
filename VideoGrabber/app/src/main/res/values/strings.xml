@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">视频源下载器</string>
+    <string name="tab_browser">浏览器</string>
+    <string name="tab_downloads">下载</string>
+    <string name="action_start_capture">开启嗅探</string>
+    <string name="action_stop_capture">停止嗅探</string>
+    <string name="hint_url">输入视频直链（.mp4 / .m3u8 …）</string>
+    <string name="action_download">下载</string>
+    <string name="detected_media">检测到视频资源</string>
+    <string name="saved_to_gallery">已保存到相册</string>
+    <string name="status_queued">排队中</string>
+    <string name="status_downloading">下载中</string>
+    <string name="status_merging">合并分片中</string>
+    <string name="status_saving">写入相册中</string>
+    <string name="status_completed">已完成</string>
+    <string name="status_failed">失败</string>
+    <string name="capture_hint">开启后，在任意 App 播放视频时，本机流量中的媒体直链会被捕获并显示在「下载」页</string>
+    <string name="sniff_title">嗅探发现（直链可点下载，域名仅作线索）</string>
+</resources>

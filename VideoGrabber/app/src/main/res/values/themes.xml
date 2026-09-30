@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- 应用主题：基于 Material3 DayNight（无 ActionBar）。
+         下载/嗅探这类工具型 App 用深色更护眼，DayNight 会跟随系统。 -->
+    <style name="Theme.VideoGrabber" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#00897B</item>
+        <item name="colorPrimaryDark">#005B4F</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
+    </style>
+</resources>
