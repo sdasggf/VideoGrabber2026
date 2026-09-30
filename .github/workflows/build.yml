@@ -18,17 +18,33 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Install Android SDK components
+        run: |
+          SDK="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          echo "SDK dir: $SDK"
+          ls "$SDK" || true
+          SM=$(find "$SDK" -name sdkmanager -type f 2>/dev/null | head -n 1)
+          [ -n "$SM" ] || SM=$(command -v sdkmanager || true)
+          echo "sdkmanager: $SM"
+          [ -n "$SM" ] || { echo "找不到 sdkmanager"; exit 1; }
+          java -version
+          yes | "$SM" --licenses > /dev/null 2>&1 || true
+          "$SM" "platforms;android-34" "build-tools;35.0.0"
 
-      - name: Accept licenses and install SDK components
-        run: yes | sdkmanager --licenses && sdkmanager "platforms;android-34" "build-tools;35.0.0"
+      - name: Ensure gradle.properties
+        run: |
+          touch gradle.properties
+          grep -q "^android.useAndroidX" gradle.properties || echo "android.useAndroidX=true" >> gradle.properties
+          grep -q "^android.enableJetifier" gradle.properties || echo "android.enableJetifier=false" >> gradle.properties
+          grep -q "^org.gradle.jvmargs" gradle.properties || echo "org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8" >> gradle.properties
+          echo "--- gradle.properties ---"
+          cat gradle.properties
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
